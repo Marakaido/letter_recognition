@@ -9,15 +9,14 @@ net.trainParam.goal=1E-4;
 [net, tr] = train(net,x,t);
 y = sim(net, x);
 perf = perform(net,y,t);
-counter = 1;
-while perf > 0.1 && counter < 50
+figure, plotperform(tr)
+while perf > 0.01
     net = init(net);
     net = train(net, x, t);
     y = net(x);
-    perf = perform(net, y, t)
-    counter = counter+1;
+    perf = perform(net, y, t);
 end
 
-figure, plotconfusion(t,y)
+plot(1:20, t, 'ro', 1:20, y, 'bo', 1:20, abs(t-y), 'r--')
 
 save('network')
