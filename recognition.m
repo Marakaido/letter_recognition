@@ -1,8 +1,9 @@
-function R = recognition(file, net)
+function [R, V] = recognition(file, net)
 
 t = im2double(imread(file));
 x = t(:);
-y = round(net(x));
+V = net(x);
+y = round(V);
 
 R = zeros(4, 1);
 

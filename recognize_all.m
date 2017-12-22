@@ -1,10 +1,13 @@
-function R = recognize_all(net)
+function [R, Y] = recognize_all(net)
 
 files = dir(fullfile('recogn', '*.bmp'));
 R = table;
+Y = [];
 for i=1:length(files)
     file = files(i);
-    T = {file.name, recognition(strcat(file.folder, '/', file.name), net)};
+    [Letter, V] = recognition(strcat(file.folder, '/', file.name), net);
+    Y = [Y; V'];
+    T = {file.name, Letter, mat2str(V)};
     R = [R; T];
 end
-R.Properties.VariableNames = {'Image' 'Recognized'};
+R.Properties.VariableNames = {'Image' 'Recognized' 'Vector'};
