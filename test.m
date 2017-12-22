@@ -1,9 +1,10 @@
+function net = test(saveFileName)
 [x,t] = train_data('train', '.bmp');
-net = newff(x, t, 25, {'tansig'});
+net = newff(x, t, [16 12], {'logsig', 'logsig'});
 
 net.trainFcn = 'trainoss';
 net.performFcn = 'mse';
-net.trainParam.epochs=2000; % Максимальна кількість епох
+net.trainParam.epochs=2000;
 net.trainParam.goal=1E-4;
 
 [net, tr] = train(net,x,t);
@@ -20,4 +21,4 @@ end
 
 figure, plotconfusion(t,y)
 
-save('network')
+save(saveFileName)
