@@ -1,5 +1,4 @@
-function R = recognition(file)
-load('network');
+function R = recognition(file, net)
 
 t = im2double(imread(file));
 x = t(:);
